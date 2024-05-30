@@ -5,6 +5,8 @@ import { checkOtp } from '../../services/authService';
 import { useNavigate } from 'react-router-dom';
 import { HiArrowRight } from 'react-icons/hi';
 import { CiEdit } from "react-icons/ci";
+import Loading from '../../ui/Loading';
+import toast from 'react-hot-toast';
 
 const RESEND_TIME = 90;
 
@@ -13,7 +15,7 @@ const CheckOTPForm = ({phoneNumber, onBack, onReSendOtp, otpResponse}) => {
     const [time, setTime] = useState(RESEND_TIME);
     const navigate = useNavigate();
 
-   const {isPending, error, data, mutateAsync} = useMutation({
+   const {isPending, mutateAsync} = useMutation({
       mutationFn: checkOtp,
     });
 
@@ -22,11 +24,14 @@ const CheckOTPForm = ({phoneNumber, onBack, onReSendOtp, otpResponse}) => {
        try {
        const {message, user} = await mutateAsync({phoneNumber, otp})
        toast.success(message);
-       if (user.isActive) {
-        // push to panel based on role
-       } else {
-         navigate("/complete-profile")
-       }
+       if (!user.isActive) return navigate("/complete-profile");
+      if (Number(user.status) !== 2) {
+        navigate("/");
+        toast("پروفایل شما در انتظار تایید است", { icon: "👏" });
+        return;
+      }
+      if (user.role === "OWNER") return navigate("/owner");
+      if (user.role === "FREELANCER") return navigate("/freelancer");
        } catch (error) {
         toast.error(error?.response?.data?.message);
        }
@@ -70,7 +75,17 @@ const CheckOTPForm = ({phoneNumber, onBack, onReSendOtp, otpResponse}) => {
             border:'1px solid rgb(var(--color-primary-300))',
             borderRadius:'0.5rem'}} 
             />
-            <button type='submit' className='btn btn--primary w-full'>تایید</button>
+            <div>
+              {isPending ?
+               (
+                <Loading />
+               ) :
+              (            
+              <button type="submit" className='btn btn--primary w-full'>تایید</button>
+            )
+              }
+             </div>
+            
         </form>
     </div>
   )
