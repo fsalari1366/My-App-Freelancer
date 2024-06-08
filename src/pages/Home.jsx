@@ -2,7 +2,9 @@ import React from 'react'
 
 const Home = () => {
   return (
+    <div className='container xl:max-w-screen-xl'>
     <div>Home</div>
+    </div>
   )
 }
 
