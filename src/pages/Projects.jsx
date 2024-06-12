@@ -1,8 +1,10 @@
-import React from 'react'
+import ProjectTable from "../features/projects/ProjectTable";
 
 const Projects = () => {
   return (
-    <div>Projects</div>
+    <div>
+      <ProjectTable />
+    </div>
   )
 }
 

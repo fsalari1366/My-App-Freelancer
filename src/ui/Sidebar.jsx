@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 const Sidebar = () => {
   
   return (
-    <div className='bg-secondary-0 row-start-1 row-span-2'>
+    <div className='bg-secondary-0 row-start-1 row-span-2 border-l border-secondary-200 p-4'>
       <ul className='flex flex-col gap-y-4'>
         <li>
           <CustomNavLink to="/owner/dashboard">
