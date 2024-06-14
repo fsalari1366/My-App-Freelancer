@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState} from 'react'
 import Table from '../../ui/Table'
 import truncateText from '../../utiles/truncateText'
 import { toPersianNumbersWithComma } from '../../utiles/toPersianNumbers'
@@ -19,7 +19,7 @@ const ProjectRow = ({ project, index }) => {
                 <td>
                     <div className="flex flex-wrap items-center gap-2 max-w-[200px]">
                     {project.tags.map((tag)=> (
-                    <span className="bage badge--secondary" key={tag}>{tag}</span>
+                    <span className="badge badge--secondary" key={tag}>{tag}</span>
                 ))}
                     </div>
                 </td>
