@@ -5,43 +5,12 @@ import Table from "../../ui/Table";
 import ProjectRow from "./ProjectRow";
 
 function ProjectTable() {
-  const projects = [
-    {
-      _id: '01',
-      title: 'پروژه اول',
-      category: {title: "برنامه نویسی", day: '03'},
-      budget: '200000',
-      deadline: '2023/04/24',
-      tags: ["برنامه نویسی", "طراحی", "طراحی سایت"],
-      freelancer: "نام تستی",
-      status: "OPEN"
-    },
-    {
-      _id: '02',
-      title: 'طراحی و برنامه نویسی',
-      category: {title: "برنامه نویسی", day: '03'},
-      budget: '400000',
-      deadline: '2023/10/04',
-      tags: ["برنامه نویسی", "طراحی", "طراحی سایت"],
-      freelancer: "نام تستی",
-      status: "CLOSE"
-    },
-    {
-      _id: '03',
-      title: 'طراحی رابط کاربری',
-      category: {title: "طراحی", day: '03'},
-      budget: '250000',
-      deadline: '2024/02/12',
-      tags: ["برنامه نویسی", "طراحی", "طراحی سایت"],
-      freelancer: "نام تستی",
-      status: "OPEN"
-    } 
-  ];
-  const { isLoading } = useOwnerProjects();
+ 
+  const { isLoading, projects } = useOwnerProjects();
 
   if (isLoading) return <Loading />;
 
-  // if (projects.length) return <Empty resourceName="پروژه" />;
+  if (!projects.length) return <Empty resourceName="پروژه" />;
 
   return (
     <Table>
