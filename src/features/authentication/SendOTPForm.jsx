@@ -1,13 +1,13 @@
 import TextField from "../../ui/TextField";
 import Loading from "../../ui/Loading";
 
-const SendOTPForm = ({ onSubmit , isSendingOtp, phoneNumber, onChange}) => {
+const SendOTPForm = ({ onSubmit , isSendingOtp, register}) => {
 
   return (
     <div>
         <form className='space-y-8' onSubmit={onSubmit}>
-            <TextField name='phoneNumber' label="شماره موبایل" value={phoneNumber}
-            onChange={onChange}
+            <TextField name='phoneNumber' label="شماره موبایل" 
+            register={register}
              />
              <div>
               {isSendingOtp ?
