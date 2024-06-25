@@ -7,45 +7,71 @@ import DatePickerField from "../../ui/DatePickerField";
 import useCategories from '../../hooks/useCategories';
 import useCreateProject from './useCreateProject';
 import Loading from "../../ui/Loading";
+import useEditProject from "./useEditProject";
 
-const CreateProjectForm = ({onClose}) => {
-  const [tags, setTags] = useState([]);
-  const [date, setDate] = useState(new Date());
-  const {register, formState: { errors },
-          reset,
-         handleSubmit
-} = useForm();
+const CreateProjectForm = ({ onClose, projectToEdit = {} }) => {
+  const { _id: editId } = projectToEdit;
+  const isEditSession = Boolean(editId);
 
-const { categories } = useCategories();
-const { isCreating, createProject } = useCreateProject();
-// const { editProject, isEditing } = useEditProject();
+  const {
+    title,
+    description,
+    budget,
+    category,
+    deadline,
+    tags: prevTags,
+  } = projectToEdit;
+  let editValues = {};
+  if (isEditSession) {
+    editValues = {
+      title,
+      description,
+      budget,
+      category: category._id,
+    };
+  }
 
-const onSubmit = (data) => {
-  const newProject = {
-    ...data,
-    deadline: new Date(date).toISOString(),
-    tags,
+  const [tags, setTags] = useState(prevTags || []);
+  const [date, setDate] = useState(new Date(deadline || ""));
+  const { categories } = useCategories();
+  const { isCreating, createProject } = useCreateProject();
+  const { editProject, isEditing } = useEditProject();
+ 
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm({ defaultValues: editValues });
+
+
+
+  const onSubmit = (data) => {
+    const newProject = {
+      ...data,
+      deadline: new Date(date).toISOString(),
+      tags,
+    };
+
+    if (isEditSession) {
+      editProject(
+        { id: editId, newProject },
+        {
+          onSuccess: () => {
+            onClose();
+            reset();
+          },
+        }
+      );
+    } else {
+      createProject(newProject, {
+        onSuccess: () => {
+          onClose();
+          reset();
+        },
+      });
+    }
   };
-
-  // if (isEditSession) {
-  //   editProject(
-  //     { id: editId, newProject },
-  //     {
-  //       onSuccess: () => {
-  //         onClose();
-  //         reset();
-  //       },
-  //     }
-  //   );
-  // } else {
-    createProject(newProject, {
-      onSuccess: () => {
-        onClose();
-        reset();
-      },
-    });
-  // }
-};
 
   return (
     <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
@@ -102,7 +128,7 @@ const onSubmit = (data) => {
       </div>
       <DatePickerField date={date} setDate={setDate} label="ددلاین" />
       <div className="!mt-8">
-        {isCreating ? ( 
+        {isCreating || isEditing ? (
           <Loading />
         ) : (
           <button type="submit" className="btn btn--primary w-full">

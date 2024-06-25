@@ -42,7 +42,8 @@ const ProjectRow = ({ project, index }) => {
                     </button>
                     <Modal open={isEditOpen} title={`ویرایش ${project.title}`} 
                     onClose={() => setIsEditOpen(false)}>
-                        <CreateProjectForm />
+                        <CreateProjectForm projectToEdit={project}
+                         onClose={() => setIsEditOpen(false)} />
                     </Modal>
                     </>
                     <>
