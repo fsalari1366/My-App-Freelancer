@@ -9,6 +9,7 @@ import Modal from '../../ui/Modal'
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import useRemoveProject from './useRemoveProject'
 import CreateProjectForm from './CreateProjectForm'
+import ToggleProjectStatus from "./ToggleProjectStatus";
 
 const ProjectRow = ({ project, index }) => {
     const [isEditOpen, setIsEditOpen] = useState(false);
@@ -19,6 +20,7 @@ const ProjectRow = ({ project, index }) => {
                 <td>{index + 1}</td>
                 <td>{truncateText(project.title, 30)}</td>
                 <td>{project.category}</td>
+                {/* <td>{project.category.title}</td> */}
                 <td>{toPersianNumbersWithComma(project.budget)}</td>
                 <td>{toLocalDateShort(project.deadline)}</td>
                 <td>
@@ -29,11 +31,15 @@ const ProjectRow = ({ project, index }) => {
                     </div>
                 </td>
                 <td>{project.freelancer?.name || "-"}</td>
-                <td>{project.status === "OPEN" ? (
+                <td>
+                <ToggleProjectStatus project={project} />
+                    {/* {project.status === "OPEN" ? (
                      <span className="badge badge--success">باز</span>
                 ) : (
                     <span className="badge badge--danger">بسته</span>
-                )}</td>
+                )} */}
+
+                </td>
                 <td>
                 <div className="flex items-center gap-x-4">
                     <>
