@@ -32,7 +32,7 @@ function CustomNavLink ({children, to}) {
     <NavLink to={to} 
         className={({isActive}) => 
           isActive 
-        ? `${navlinkClass} bg-primary-100/50 text-primary-900` 
+        ? `${navlinkClass} bg-primary-100/80 text-primary-900` 
         : `${navlinkClass} text-secondary-600`
         } >
           {children}

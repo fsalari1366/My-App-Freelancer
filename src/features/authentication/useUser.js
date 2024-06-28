@@ -11,14 +11,5 @@ export default function useUser() {
   const { user } = data || {};
 
   return { isLoading, user };
-//   const { data, isLoading } =
-// return useQuery({
-//     queryKey: ["get-user"],
-//     queryFn: getUser,
-//     retry: false,
-//   });
 
-//   const { user } = data || {};
-
-//   return { isLoading, user };
 }

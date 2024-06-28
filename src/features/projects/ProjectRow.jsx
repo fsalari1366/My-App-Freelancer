@@ -34,12 +34,6 @@ const ProjectRow = ({ project, index }) => {
                 <td>{project.freelancer?.name || "-"}</td>
                 <td>
                 <ToggleProjectStatus project={project} />
-                    {/* {project.status === "OPEN" ? (
-                     <span className="badge badge--success">باز</span>
-                ) : (
-                    <span className="badge badge--danger">بسته</span>
-                )} */}
-
                 </td>
                 <td>
                 <div className="flex items-center gap-x-4">

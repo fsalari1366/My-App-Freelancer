@@ -9,12 +9,14 @@ import AppLayout from './ui/AppLayout';
 import OwnerDashboard from './pages/OwnerDashboard';
 import Project from './pages/Project';
 import Projects from './pages/Projects';
+import { DarkModeProvier } from "./context/DarkModeContext";
 
 
 const queryClient = new QueryClient();
 
 const App = () => {
   return (
+    <DarkModeProvier>
     <QueryClientProvider client={queryClient}>
       <Toaster />
       
@@ -32,6 +34,7 @@ const App = () => {
     </Routes>
     
     </QueryClientProvider>
+    </DarkModeProvier>
   )
 }
 
